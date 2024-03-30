@@ -1,0 +1,263 @@
+<!DOCTYPE HTML>
+<!--
+	Solid State by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>COVID-19 Deep Dive</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+	</head>
+	<body class="is-preload">
+
+		<!-- Page Wrapper -->
+			<div id="page-wrapper">
+
+				<!-- Header -->
+					<header id="header">
+						<h1><a href="index.html">Portfolio Projects</a></h1>
+						<nav>
+							<a href="#menu">Menu</a>
+						</nav>
+					</header>
+
+				<!-- Menu -->
+					<nav id="menu">
+						<div class="inner">
+							<h2>Menu</h2>
+							<ul class="links">
+								<li><a href="index.html">Home</a></li>
+								<li><a href="supermarket_sales.html">Supermarket Sales</a></li>
+								<li><a href="coffee_analysis.html">Coffee Chain Analysis</a></li>
+								<li><a href="covid_reporting.html">COVID Reporting Deep Dive</a></li>
+								<li><a href="data_skills.html">Data Analyst Job Search</a></li>
+                                <li><a href="NFL_free_agency.html">NFL Free Agency</a></li>
+				<!--			<li><a href="elements.html">Elements</a></li> -->
+							</ul>
+							<a href="#" class="close">Close</a>
+						</div>
+					</nav>
+
+				<!-- Wrapper -->
+					<section id="wrapper">
+						<header>
+							<div class="inner">
+								<h2>COVID-19 Reporting Deep Dive</h2>
+								<p>SQL - Data Cleansing and Exploratory Analysis</p>
+								<p>Tableau - Interactive Dashboard</p>
+							</div>
+						</header>
+
+						<!-- Content -->
+							<div class="wrapper">
+								<div class="inner">
+
+									<h3 class="major">Backstory</h3>
+
+									<p>I’ve spent the bulk of my career within the healthcare industry. And when COVID hit the United States like a firestorm, I witnessed firsthand the impact it had on the hospital system and patient care. Emergency rooms and clinics struggled to match the demand for treatment. Supply chain departments ordered all they could from any available vendor to keep up with the influx of new patients.</p>
+									
+									<p>And no matter where you lived, there’s a good chance that COVID affected you or someone you know over the past several years.</p>
+									
+									<p>So out of professional curiosity, I got my hands on a dataset collected by the US Department of Health and Human Services (via healthdata.gov). This dataset is updated regularly and contains almost 77,000 rows and 135 fields of COVID related information sent by local hospitals across the country. </p>
+									
+									<p>With metrics such as patient age, geographic location, staffing shortages, and reported deaths (to name a few!), there is plenty to dig deep with this time-series data dating back to January 1, 2020. </p>
+									
+									<p>I’m going in with an open mind! My only real goal is to explore the files, see what stands out, and report back my findings to you. </p>
+									
+									<p>Let’s go! </p>
+
+
+									<h3 class="major">Process</h3>
+									
+									<div class="col-12"><span class="image fit"><img src="images/covid deep dive.png" alt="" /></span></div>
+
+									<p>To start, I should mention that the initial data was retrieved as a single file. But I didn’t want to make this too easy; so, I split the CSV into 4 separate tables and gave each row a primary key, or row ID. I mean, where’s the fun if you can’t query a few JOINs now and again? </p>
+									
+									<p>One of the split files contains geographic fields and date of occurrence. The next file grouped together any column where hospital staffing was reported. A third file holds all fields made up of COVID-specific values (suspected and confirmed cases, deaths, age reported, and more). The final file includes any reference of bed metrics reported. This includes inpatient vs ICU beds (available and in use) between adults and children. </p>
+									
+									<p>With that said, I create the database and load my four new tables to begin cleaning my data. And as it often happens, the first thing I spot are some of my fields have been imported with invalid syntax. </p>
+									
+									<p>With a few SQL statements, I prep my tables for exploration. </p>
+									
+									<h4>Overview of Data Cleaning Tasks</h4>
+									
+									<ul>
+										<li>ALTER tables to RENAME column names with invalid syntax</li>
+										<li>UPDATE table to SET date format in conjunction with ALTER and ADD COLUMN</li>
+										<li>DROP unnecessary columns</li>
+										<li>ADD PRIMARY KEY to database</li>
+									</ul>
+									
+									<p>My tables are clean and now it’s time to get down to business! </p>
+									
+									<p>To me, a clear starting point is to take an overview look at the total confirmed or suspected cases of COVID-19, number of deaths reported, and the overall mortality rate.</p>
+
+									<h4>SQL Query Snippet</h4>
+										<pre><code>SELECT SUM(inpatient_beds_used_covid) AS covid_cases,
+SUM(deaths_covid) AS covid_deaths,
+ROUND((SUM(deaths_covid)/SUM(inpatient_beds_used_covid) * 100),2) AS fatal_percentage
+FROM covid_influenza_data;</code></pre>
+
+										<div class="table-wrapper">
+											<table class="alt">
+												<thead>
+													<tr>
+														<th>covid_cases</th>
+														<th>covid_deaths</th>
+														<th>fatal_percentage</th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr>
+														<td>60,887,178</td>
+														<td>737,476</td>
+														<td>1.2 %</td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
+									
+									<p>Obviously, the reported cases and deaths is striking, but the percentage doesn’t represent the numbers truthfully. If I break the same metrics by state and year, I think we’ll get a different perspective.</p>
+
+									<pre><code>SELECT state, YEAR(record_date) as year,
+SUM(inpatient_beds_used_covid) AS covid_cases,
+SUM(deaths_covid) AS covid_deaths,
+ROUND((SUM(deaths_covid)/SUM(inpatient_beds_used_covid) * 100),2) AS fatal_percentage
+FROM covid_influenza_data cid
+JOIN state_data sd
+	ON cid.record_id = sd.record_id
+GROUP BY state, year
+ORDER BY fatal_percentage DESC;</code></pre>
+
+									<p>With this particular view, there are clear jumps in the percentage of fatalities by state for an individual year. Specifically, Oregon ranks the highest in deaths during 2020 with 15.4%. Being familiar with the spread of COVID, this isn’t too surprising given that COVID first took hold in the US on the along the northwestern coast.</p>
+
+									<p>Despite the origin of COVID-19 in the United States, I run a similar analysis to look at the top five states impacted over the entire time-series. According to the output, the highest reported death toll were located in Michigan, District of Columbia, Montana, Massachusetts, and Alabama.</p>
+
+									<div class="table-wrapper">
+										<table class="alt">
+											<thead>
+												<tr>
+													<th>state</th>
+													<th>covid_cases_reported</th>
+													<th>covid_deaths_reported</th>
+													<th>fatal_percentage</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<td>MI</td>
+													<td>6,508,599</td>
+													<td>197,121</td>
+													<td>38.76 %</td>
+												</tr>
+												<tr>
+													<td>DC</td>
+													<td>40,916</td>
+													<td>15,074</td>
+													<td>36.84 %</td>
+												</tr>
+												<tr>
+													<td>MT</td>
+													<td>203,978</td>
+													<td>72,441</td>
+													<td>35.51 %</td>
+												</tr>
+												<tr>
+													<td>MA</td>
+													<td>285,997</td>
+													<td>101,473</td>
+													<td>35.48 %</td>
+												</tr>
+												<tr>
+													<td>AL</td>
+													<td>365,590</td>
+													<td>129,322</td>
+													<td>35.37 %</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+
+									<p>The state data is interesting for sure. But now I want to see the numbers for confirmed cases between each age group. After setting up the aggregations and ALIAS for each age bracket, I find that the totals in adults increases with age, with a noticeable jump after the age of 50.</p>
+
+									<p>For pediatric patients, it shouldn’t come as a shock that the effect was the opposite. Newborns and up to the age of 4, experienced the most impact due to COVID. As the ages grew, the numbers began to drop dramatically.</p>
+
+									<p>COVID cases and mortality rates are noteworthy but that’s just one facet of the database. The rest of my analysis and fact-finding mission is spent exploring the other tables containing bed and staff data. With queries focused on bed availability by QUARTER, staff shortages by WEEK, and other utilization statistics through various aggregations and JOINs, I’ve been able to identify relevant and unexpected trends.</p>
+
+									<p>Unexpected, you ask? Well, for instance, Texas and California both lead the ranks in daily staff shortages and weekly anticipated staff shortages for COVID care. Given the size of these states, it’s not hard to believe this being the case.</p>
+
+									<p>I won’t drone on about every significant statistic I found. There’s so much data available, we could spend hours brainstorming and answering questions from several vantage points. But if you’re the curious type, like myself, I’d recommend checking out my github, where you can see the queries I used and even download the datasets yourself.</p>
+
+
+									<h3 class="major">Visualization</h3>
+
+									<p>However, since the various utilizations of reported cases and deaths (by age, state, and year) were the highlights of my deep dive, I created a simple Tableau dashboard for you to explore my findings.</p>
+
+									<p>Utilizing a dual axis time-series chart, color-coded bar charts and map, with a filter on the year, I’ve made the dashboard available to view most of the KPI’s I’ve already discussed.</p>
+
+
+								
+
+									<h3 class="major">Behind the Scenes</h3>
+									<p>Like I said, if you've got that itch to explore the data yourself, or want to know how I did it, check it out!</p>
+
+									<a href="https://github.com/chriscalahan/reported_covid_cases_detail" class="button primary"> My GITHUB</a>
+
+									<section class="features">
+										<article>
+											<a href="data_skills.html" class="image"><img src="images/data skills feature image.png" alt="" /></a>
+											<h3 class="major">Data Analyst Skills Job Search</h3>
+											<p>Let's analyze the desired skills obtained from a Google search and see where you stand. Using Tableau, filter by company or job board and get an idea of what the your salary would be for your skill set.</p>
+											<a href="data_skills.html" class="special">Learn more</a>
+										</article>
+										<article>
+											<a href="supermarket_sales.html" class="image"><img src="images/supermarket feature image.png" alt="" /></a>
+											<h3 class="major">Regional Supermarket Sales</h3>
+											<p>Using a combination of SQL and Tableau, I take a dive into supermarket sales and inventory data over a four year period. Let's see who has risen to the top!</p>
+											<a href="supermarket_sales.html" class="special">Learn more</a>
+										</article>
+									</section>
+
+								</div>
+							</div>
+
+					</section>
+
+				<!-- Footer -->
+				<section id="footer">
+					<div class="inner">
+						<h2 class="major">Get in touch</h2>
+						<p>If you like what you see, have comments, or think I'd be a good fit for your company - REACH OUT! 🙋.</p>
+						<ul class="contact">
+							<li class="icon solid fa-home">
+								Chris Calahan<br />
+								Middletown, DE 19709
+							</li>
+							<li class="icon solid fa-phone">(302) 740-0900</li>
+							<li class="icon solid fa-envelope"><a href="mailto:chriscalahan@gmail.com">chriscalahan@gmail.com</a></li>
+							<li class="icon brands fa-linkedin-in"><a href="https://www.linkedin.com/in/chriscalahan/">LinkedIn</a></li>
+							<li class="icon brands fa-youtube"><a href="https://www.youtube.com/@sheetskunk/">YouTube</a></li>
+							
+						</ul>
+						<ul class="copyright">
+							<li>&copy; Chris Calahan - Data Analyst Portfolio</li>
+						</ul>
+					</div>
+				</section>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.scrollex.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>
