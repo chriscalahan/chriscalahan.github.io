@@ -1,0 +1,320 @@
+<!DOCTYPE HTML>
+<!--
+	Solid State by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Regional Supermarket Sales</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+	</head>
+	<body class="is-preload">
+
+		<!-- Page Wrapper -->
+			<div id="page-wrapper">
+
+				<!-- Header -->
+					<header id="header">
+						<h1><a href="index.html">Portfolio Projects</a></h1>
+						<nav>
+							<a href="#menu">Menu</a>
+						</nav>
+					</header>
+
+				<!-- Menu -->
+					<nav id="menu">
+						<div class="inner">
+							<h2>Menu</h2>
+							<ul class="links">
+								<li><a href="index.html">Home</a></li>
+								<li><a href="supermarket_sales.html">Supermarket Sales</a></li>
+								<li><a href="coffee_analysis.html">Coffee Chain Analysis</a></li>
+								<li><a href="covid_reporting.html">COVID Reporting Deep Dive</a></li>
+								<li><a href="data_skills.html">Data Analyst Job Search</a></li>
+                                <li><a href="NFL_free_agency.html">NFL Free Agency</a></li>
+				<!--			<li><a href="elements.html">Elements</a></li> -->
+							</ul>
+							<a href="#" class="close">Close</a>
+						</div>
+					</nav>
+
+				<!-- Wrapper -->
+					<section id="wrapper">
+						<header>
+							<div class="inner">
+								<h2>Regional Supermarket Sales</h2>
+								<p>SQL - Data Cleansing and Exploratory Analysis</p>
+								<p>Tableau - Visual Presentation via Interactive Dashboard</p>
+							</div>
+						</header>
+
+						<!-- Content -->
+							<div class="wrapper">
+								<div class="inner">
+
+									<h3 class="major">Backstory</h3>
+									<p>In my fictional role as data analyst for a consulting agency, I’ve been asked to review three files detailing the sales and inventory performance of competitor supermarkets in the Baltimore, Maryland, and surrounding areas. My company hopes to gain some insights they can use to make recommendations to our new client, who has their sights set on opening a chain of their own in the region.</p>
+
+									<p>My three datasets contain product information, inventory statistics, and sales metrics by location and store. With over three years of data, I shouldn’t have any problem uncovering some hidden gems.</p>
+
+									<h3 class="major">Process</h3>
+									<p>Glancing over the data provided, I form a few basic exploratory questions I believe will help my goal.</p>
+
+									<div class="col-12"><span class="image fit"><img src="images/questions.png" alt="" /></span></div>
+
+									<ol>
+										<li>Which stores have performed the best in sales (in total, by year)?</li>
+										<li>Should location be a determining factor for the client?</li>
+										<li>Since we have inventory data, can I find correlation between the inventory management approach and overall profitability?</li>
+									</ol>
+
+									<p>With the foundations of my methodology nailed down, I load my tables into SQL and begin the cleaning process. After a few checks on distinct values and formatting, I update the tables with new field names, and other necessary modifications.</p>
+									<p>Using a compilation of aggregations, JOINs, subqueries, and CTE’s, I dive deep into the supermarket data tables with my exploratory questions and an open mind to let the data tell me its story.</p>
+									<p>I create many different queries to unravel any mysteries and answer new questions that come up through my exploration. However, some of the key queries I found relevant, I store into separate VIEWs for later analysis and reporting. These include:</p>
+
+									<ul>
+										<li>Top sales totals by store over the full length of time</li>
+										<li>Top sales totals by year</li>
+										<li>Top potential sales based on inventory levels</li>
+										<li>Total sales by location</li>
+										<li>Top unique products based on total sales value</li>
+										<li>Product breakdown of quantity sold, average price, and total sales (by location and store)</li>
+									</ul>
+
+									<h3 class="major">Visualization</h3>
+
+									<p>Before presenting my findings, I load my VIEWs into Tableau. I don’t want to overwhelm the stakeholder but preparing for questions I haven’t already thought about is at the top of my mind. I could have loaded the entire database but I’m confident that my subsets of data bring to light the key elements for conclusive action.</p>
+
+									<p>One final step before creating my individual charts and dashboard is to transform the location data. Unfortunately, I was only provided with the neighborhood of each store location. Thanks to a quick Google search, I gathered the corresponding zip codes for each neighborhood and integrated them into Tableau as a location alias.</p>
+
+									<p>Since the consultants working the account haven’t asked or given any direction on visual aids, I whip up a simple dashboard to highlight the KPIs I found relevant.</p>
+
+									<em>Luckily, I had some spare time!</em><br></br>
+
+									<h3 class="major">Conclusions</h3>
+
+									<p>Let’s look back at my initial questions and explore the results. First, which stores performed the best over the time period?</p>
+
+									<p>Whether looking at sales as a whole, or by each individual year, there were three stores that faired the best. These were Ben Franklin, Shopko, and Family Dollar. However, Burlington Coat Factory, Renys, T.J. Maxx, and Kmart, all had high performing years that should be considered for any actionable recommendations.</p>
+									
+									<h4>Top 10 Sales by Store and Year</h4>
+										<div class="table-wrapper">
+											<table class="alt">
+												<thead>
+													<tr>
+														<th>Store</th>
+														<th>Year</th>
+														<th>Total Sales</th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr>
+														<td>Ben Franklin</td>
+														<td>2017</td>
+														<td>$383,764.05</td>
+													</tr>
+													<tr>
+														<td>Ben Franklin</td>
+														<td>2020</td>
+														<td>$381,020.85</td>
+													</tr>
+													<tr>
+														<td>Ben Franklin</td>
+														<td>2018</td>
+														<td>$374,340.80</td>
+													</tr>
+													<tr>
+														<td>Ben Franklin</td>
+														<td>2019</td>
+														<td>$373,399.83</td>
+													</tr>
+													<tr>
+														<td>Family Dollar</td>
+														<td>2020</td>
+														<td>$357,342.37</td>
+													</tr>
+													<tr>
+														<td>Shopko</td>
+														<td>2020</td>
+														<td>$356,432.46</td>
+													</tr>
+													<tr>
+														<td>Shopko</td>
+														<td>2017</td>
+														<td>$355,659.04</td>
+													</tr>
+													<tr>
+														<td>Shopko</td>
+														<td>2019</td>
+														<td>$354,607.35</td>
+													</tr>
+													<tr>
+														<td>Family Dollar</td>
+														<td>2018</td>
+														<td>$346,013.81</td>
+													</tr>
+													<tr>
+														<td>Family Dollar</td>
+														<td>2017</td>
+														<td>$342,923.02</td>
+													</tr>
+												</tbody>
+												<tfoot>
+													<tr>
+														<td colspan="2"></td>
+														<td>$3,625,503.58</td>
+													</tr>
+												</tfoot>
+											</table>
+										</div>
+
+									<p>As for the second question, regarding location, I do believe that location plays a unique role in potential success.</p>
+
+									<p>By examining the three top stores (Ben Franklin, Shopko, and Family Dollar), all three are located just west of downtown Baltimore. If I expand the search based on total sales above 1.3 million, I find a similar result include locations to the west of Baltimore.</p>
+
+									<p>However, there is one outlier, located in Charles Village, just north of Baltimore. This location accounted for the highest volume of sales, just over 1.7 million. The two stores located in this area are Ollie’s Bargain Outlet and Fred Meyer. The locations nearest Charles Village did not fare as well, which could be indicative of the population segment.</p>
+
+									<p>The third question initially posed is related to individual product purchases. Were there any correlations between store success and inventory items stocked? Based on the stats, no, there is no direct correlation between top selling products and inventory levels.</p>
+
+									<p>What does this mean? Maybe nothing. Maybe something. It would certainly take more data to say definitively. But for now, it doesn’t appear that stores are stocking up on their best-selling products.</p>
+
+									<p>For example, when I compare all products sold and their stocked quantities against the top ten products sold (by the three best stores), it’s clear that these items are ranked in the lower end of quantity percentages.</p>
+
+									<h4>SQL Query Snippet</h4>
+										<pre><code># Create a temporary table showing the top ten products sold and their key metrics, by the 3 best stores
+
+CREATE temporary table temp_table AS 
+	SELECT product_name,
+		SUM(quantity_available) AS quantity_avilable,
+		SUM(quantity) AS total_quantity, 
+		ROUND(AVG(unit_price),2) AS avg_price, 
+		ROUND(SUM(unit_price * quantity),2) AS total_sales
+	FROM supermarket_products sp
+	JOIN supermarket_sales ss
+		ON sp.product_id = ss.product_id
+	JOIN supermarket_inventory si
+		ON ss.product_id = si.product_id
+	WHERE supplier IN ('Ben Franklin','Shopko','Family Dollar')
+	GROUP BY product_name, supplier, neighborhood
+	ORDER BY total_sales DESC, total_quantity DESC
+	LIMIT 10;
+
+# Create a secondary temp table containing a single column of product names from the primary temp table
+
+CREATE temporary table t2 AS
+	SELECT product_name 
+	FROM temp_table;
+
+# Querying all products from each store, then filtering on top products from the 3 best stores.
+# The lower the ranking (1-4), the less inventory they stocked for that product
+
+SELECT product_name,
+	SUM(quantity_available) AS quantity_available,
+	SUM(quantity) AS total_quantity, 
+	ROUND(AVG(unit_price),2) AS avg_price, 
+	ROUND(SUM(unit_price * quantity),2) AS total_sales,
+	DENSE_RANK() OVER(PARTITION BY product_name ORDER BY SUM(quantity_available) DESC) AS ranking
+FROM supermarket_products sp
+JOIN supermarket_sales ss
+	ON sp.product_id = ss.product_id
+JOIN supermarket_inventory si
+	ON ss.product_id = si.product_id
+WHERE product_name IN (SELECT * FROM t2)
+GROUP BY product_name, supplier, neighborhood
+ORDER BY total_sales DESC, total_quantity DESC;</code></pre>
+
+									<p>In addition, strictly looking at total sales, the top items inventoried are vastly different when we compare the best sellers for Ben Franklin, Shopko, and Family Dollar. However, you have to factor in that these alternative product sales numbers have more to do with individual cost in most cases.</p>
+
+									<h3 class="major">Recommendations</h3>
+
+									<p>With the data we have available, there are two clear certainties we can pass on to the consultant lead for the client.</p>
+
+									<ol>
+										<li>Location matters! With an expansive dataset, we could factor in customer demographics and weigh things like income and household capacity to find more profitable areas. But my recommendation would be to scout areas west of downtown Baltimore for the first chain location. The data shows a high confidence that successful sales numbers will be found there.</li>
+										<br></br><li>Manage inventory with a conservative mindset. Not only will it ease the financial stress many new businesses experience, but mimicking the success of current competitors will bare fruit in the long run. Not only will the new store have time to analyze sales for proper course corrections, but the additional funds provided can go toward marketing initiatives.<br></br>
+											Furthermore, we have a list of products and average prices that do well in each location. This will help the client remain competitive in their market and plan initial stock purchases judiciously.</li>
+									</ol>
+
+									<h3 class="major">Behind the Scenes</h3>
+									<p>Telling you my thought process and all the steps I took with this analysis is all fine and dandy. But nothing beats hands-on experience. So, to have a peek at the original data, the SQL queries I used, and the Tableau workbook, click the link below!</p>
+
+									<a href="https://github.com/chriscalahan/supermarket_sales" class="button primary"> My GITHUB</a>
+
+									<section class="features">
+										<article>
+											<a href="coffee_analysis.html" class="image"><img src="images/coffee sales feature image.png" alt="" /></a>
+											<h3 class="major">Coffee Chain Analysis</h3>
+											<p>Excel is as popular as they come in the business world. So, let's play data analyst consultant and help a moderately sized coffee sales chain make decisions to improve their bottom line.</p>
+											<a href="coffee_analysis.html" class="special">Learn more</a>
+										</article>
+										<article>
+											<a href="data_skills.html" class="image"><img src="images/data skills feature image.png" alt="" /></a>
+											<h3 class="major">Data Analyst Skills Job Search</h3>
+											<p>Let's analyze the desired skills obtained from a Google search and see where you stand. Using Tableau, filter by company or job board and get an idea of what the your salary would be for your skill set.</p>
+											<a href="data_skills.html" class="special">Learn more</a>
+										</article>
+									</section>
+
+								</div>
+							</div>
+
+					</section>
+
+				<!-- Footer -->
+				<section id="footer">
+					<div class="inner">
+						<h2 class="major">Get in touch</h2>
+						<p>If you like what you see, have comments, or think I'd be a good fit for your company - REACH OUT! 🙋.</p>
+						<form method="post" action="mailto:chriscalahan@gmail.com">
+							<div class="fields">
+								<div class="field">
+									<label for="name">Name</label>
+									<input type="text" name="name" id="name" />
+								</div>
+								<div class="field">
+									<label for="email">Email</label>
+									<input type="email" name="email" id="email" />
+								</div>
+								<div class="field">
+									<label for="message">Message</label>
+									<textarea name="message" id="message" rows="4"></textarea>
+								</div>
+							</div>
+							<ul class="actions">
+								<li><input type="submit" value="Send Message" /></li>
+							</ul>
+						</form>
+						<ul class="contact">
+							<li class="icon solid fa-home">
+								Chris Calahan<br />
+								10 Jersey Court<br />
+								Middletown, DE 19709
+							</li>
+							<li class="icon solid fa-phone">(302) 740-0900</li>
+							<li class="icon solid fa-envelope"><a href="mailto:chriscalahan@gmail.com">Email</a></li>
+							<li class="icon brands fa-linkedin-in"><a href="https://www.linkedin.com/in/chriscalahan/">LinkedIn</a></li>
+							<li class="icon brands fa-youtube"><a href="https://www.youtube.com/@sheetskunk/">YouTube</a></li>
+							
+						</ul>
+						<ul class="copyright">
+							<li>&copy; Chris Calahan - Data Analyst Portfolio.</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+						</ul>
+					</div>
+				</section>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.scrollex.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>

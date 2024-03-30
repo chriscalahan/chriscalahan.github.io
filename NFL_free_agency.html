@@ -1,0 +1,408 @@
+<!DOCTYPE HTML>
+<!--
+	Solid State by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>NFL Free Agency</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+	</head>
+	<body class="is-preload">
+
+		<!-- Page Wrapper -->
+			<div id="page-wrapper">
+
+				<!-- Header -->
+					<header id="header">
+						<h1><a href="index.html">Portfolio Projects</a></h1>
+						<nav>
+							<a href="#menu">Menu</a>
+						</nav>
+					</header>
+
+				<!-- Menu -->
+					<nav id="menu">
+						<div class="inner">
+							<h2>Menu</h2>
+							<ul class="links">
+								<li><a href="index.html">Home</a></li>
+								<li><a href="supermarket_sales.html">Supermarket Sales</a></li>
+								<li><a href="coffee_analysis.html">Coffee Chain Analysis</a></li>
+								<li><a href="covid_reporting.html">COVID Reporting Deep Dive</a></li>
+								<li><a href="data_skills.html">Data Analyst Job Search</a></li>
+                                <li><a href="NFL_free_agency.html">NFL Free Agency</a></li>
+				<!--			<li><a href="elements.html">Elements</a></li> -->
+							</ul>
+							<a href="#" class="close">Close</a>
+						</div>
+					</nav>
+
+				<!-- Wrapper -->
+					<section id="wrapper">
+						<header>
+							<div class="inner">
+								<h2>NFL Free Agency Picker</h2>
+								<p>Python - Web Scraping, Data Cleansing, DataFrames, Graphs, and more!</p>
+							</div>
+						</header>
+
+						<!-- Content -->
+							<div class="wrapper">
+								<div class="inner">
+
+									<h3 class="major">Backstory</h3>
+									<p>As many American football fans will tell you, the NFL offseason is <em>almost</em> as exciting as the playoffs.🏈 Rumors, extensions, trades, and signings run rampant! So, I thought it might be fun to play 'General Manager' and help some of the most position-deprived teams target their top free agent signings.</p>
+
+									<p>Using Jupyter Notebook and some key libraries and modules like <code>(Pandas, NumPy, requests, BeautifulSoup, reduce, Matplotlib, and Seaborn)</code>, my goal is to review the 2023 regular season statistics and active free agents available. I want to identify the worst offensive and defensive teams in the league, their available cap space <em>(free cash to spend)</em>, and the free agent players who are the best at their positions.</p>
+
+                                    <p><b><u>DISCLAIMER:</u></b> The free agents included in this project were unsigned by a team at the time the data was obtained. Furthermore, the analysis only takes a limited view of available information. For instance, if the statistics lead me to suggest signing a quarterback for a team, I am not accounting for any draft selections or players on the roster who may have not played last year.</p>
+
+                                    <p><b>*COUGH*</b> <em>Aaron Rodgers</em> <b>*COUGH*</b> 🤷‍♂️</p>
+
+									<h3 class="major">Preparing the Data</h3>
+									<p>To get the data I need, I utilized web scraping in Python, in addition to downloading a CSV file that will later be read into my kernel. The sources of my NFL free agency picker are as follows:</p>
+
+                                    <ul>
+                                        <li><b>Salary Cap Space</b> - <em><a href="https://overthecap.com/salary-cap-space">Over the Cap</a></em></li>
+                                        <li><b>Available Free Agent Rankings</b> - <em><a href="https://overthecap.com/salary-cap-space">Pro Football Focus (PFF)</a></em></li>
+                                        <li><b>2023 NFL Team Stats</b> - <em><a href="https://sports.yahoo.com/nfl/stats/team/?guccounter=1&amp;guce_referrer=aHR0cHM6Ly93d3cuZ29vZ2xlLmNvbS8&amp;guce_referrer_sig=AQAAABNdA2KI4ZlzkMPEpxHOpSdk5fT6sadCOKTQJztzdT-7f34j3WqRgn_ekaxAeTRNi70tcJr-XS8RfmU5mvi7D8yB4CfxR5Ux5DK7KqjOjel2wfWWlwDr6ONia6_wiSwLANhQ-yeN226GmPvWhfglTV0304m3D79hGzaSxzbXh0xr&amp;selectedTable=0">Yahoo Sports</a></em></li>
+                                    </ul>
+
+									<div class="col-12"><span class="image fit"><img src="images/nfl logo.png" alt="" /></span></div>
+
+                                    <h4>Salary Cap</h4>
+
+									<p>The first thing I tackle is grabbing the available salary cap for each team. Granted, these numbers change fast with restructured contracts and cap casualties, but it'll work for what I need. After starting a new kernel within Jupyter, I begin the process.</p>
+                                    <pre><code>
+import requests
+from bs4 import BeautifulSoup
+import pandas as pd
+
+cap_url = "https://overthecap.com/salary-cap-space"
+cap_page = requests.get(cap_url)
+cap_soup = BeautifulSoup(cap_page.text, 'html')
+                                    </code></pre>
+
+									<p>Thanks to BeautifulSoup, Pandas, and a compilation of for loops, I whittle down the page into a new dataframe containing all 32 NFL teams and their cap space. However, before I move on, I perform some cleanup and change the cap data type after removing non-numeric characters.</p>
+									
+                                    <h4>Team Statistics</h4>
+
+                                    <p>Next up, it's time to grab the offensive and defensive statistics for each team.</p>
+
+                                    <p>Using the same methods as I did with the salary cap dataframe, I scrape the 2023 regular season stats from Yahoo Sports. Separating offense and defense into separate dataframes, I now have the stats needed to determine each team's weakest positions.</p>
+
+									<h4> Free Agent Rankings</h4>
+
+                                    <p>My last data source is a CSV file downloaded from PFF. It's a filtered list of unsigned free agents, their player position, and PFF rank determined by their own metrics.</p>
+
+                                    <p>Finally, with whispers of possible moves at the start of free agency, I export each newly created dataframe for future use. If you're an NFL junkie like me, you know how quickly things change this time of year!</p>
+									
+                                    <h3 class="major">Selecting Free Agents</h3>
+
+									<p>To help these teams pick the best free agent for their money, I want to start segmenting the available players. Specifically, I want to assign a label of either Offense or Defense. In addition, I need a list of all the positions in their abbreviated format.</p>
+
+                                    <pre><code># Which positions are listed in dataframe?
+avail_fa['Position'].unique()
+
+# Output
+    array(['DI', 'QB', 'ED', 'WR', 'T', 'CB', 'LB', 'S', 'G', 'HB', 'TE', 'C'],
+        dtype=object)
+
+# Add offense or defense label to dataframe
+import numpy as np
+
+dpos = np.array(['DI','ED','CB','LB','S'])
+pos_values = np.where(avail_fa['Position'].isin(dpos),'Defense','Offense')
+avail_fa['Type'] = pos_values
+                                    </code></pre>
+
+									<p>Next, I dive into the team statistics to find the worst ranked teams in various specialties. My thinking is to segment the defense into two subsets, and the same for the offense. I'll group the defensive linemen and linebackers into one group, and cornerbacks and safeties into another. For offense, I'll group the offensive linemen and runningback into a rushing category, and the quarterback, tight end, and wide receivers into a passing category.</p>
+
+									<p>For you NFL fans, you may find some fault in this. It's true, there's plenty of logic pointing to these positions being interchangeable within the groupings. But for simplicity sake, I'll keep it generic. With that said, I take the bottom 10 teams in each statistical category, and use <code>functools</code> to create 4 new dataframes where a team is found in each positional category.</p>
+
+                                    <pre><code># Worst 10 teams subsets for each metric
+
+top_rushing_allowed = defense[['Team','RushYds/G']].sort_values(by = 'RushYds/G', ascending = False)[:10]
+top_sacks_made = defense[['Team','Sack']].sort_values(by = 'Sack', ascending = True)[:10]
+top_points_allowed = defense[['Team','Pts/G']].sort_values(by = 'Pts/G', ascending = False)[:10]
+top_passing_allowed = defense[['Team','PassYds/G']].sort_values(by = 'PassYds/G', ascending = False)[:10]
+top_int_made = defense[['Team','Int']].sort_values(by = 'Int', ascending = True)[:10]
+
+# Identify teams with worst defensive metrics affecting Defensive line and linebackers
+
+from functools import reduce
+
+worst_def_front_stats = [top_rushing_allowed, top_sacks_made, top_points_allowed]
+worst_def_front = reduce(lambda left, right: pd.merge(left,right, on='Team', how = 'inner'), 
+                        worst_def_front_stats)</code></pre>
+
+									<em>I run the same code for the other defensive category, and both offensive sets.</em>
+                                    
+                                    <p>I want to add to my new subset dataframes but I notice that the NFL team names are listed differently in the salary table. For example, the Philadelphia Eagles are labeled as 'Eagles' in the salary df, and just 'Philadelphia' from the original stats data. After utilizing the <code>.replace</code> function, I add the team cap space into my most recent dfs.</p>
+
+                                    <h4>A quick visual analysis</h4>
+
+                                    <p>Because I'm curious, I decide to run a simple correlation on the worst offensive passing teams. I'm wondering if I notice any surprising indicators between the various metrics that warrant further analysis.</p>
+                                    <p>To do this, I first have to temporarily change the data type of the team names, replacing them with category codes. Otherwise, I can't use them in my correlation matrix. After that, I import Matplotlib and Seaborn to create a correlation heatmap. I'm glad I took the extra step for my own peace of mind, but given the size of the sample and results, there doesn't seem to be anything I didn't already anticipate.</p>
+
+                                    <div class="col-4"><span class="image fit"><img src="images/nfl_corr_matrix.png" alt="" /></span></div>
+
+                                    <h4>Back to the picker</h4>
+
+                                    <p>The next step of my analysis is to set the foundation for the free agency picker by identifying the position group needed for each team and adding it to the appropriate dataframe. Here, you'll see the code constructed for worst defensive front df. The other tables used a similar methodology except the median being replaced with the mean.</p>
+
+                                    <pre><code>sack_median = worst_def_front['Sack'].median()
+rushyds_median = worst_def_front['RushYds/G'].median()
+
+# Define a function to apply the condition check
+# Check if 'Sack' < 30, or 'RushYds/G' is > than the median and 'Sack' < the median
+
+def check_condition_front(row):
+    
+    if (row['Sack'] < 30):
+        return 'Line Help'
+    elif ((row['RushYds/G'] > rushyds_median) and (row['Sack'] < sack_median)):
+        return 'Line Help'
+    else:
+        return 'Target Linebacker'
+    
+worst_def_front['Assessment'] = worst_def_front.apply(check_condition_front, axis=1)</code></pre>
+
+                                    <p>Everything is looking good so far! Now, I'll take all the new dataframes and merge them into one using the <code>reduce</code> module again, sorting the output by the salary cap space in descending order. This way, those teams with the most cash to spend, will have first pick of free agents. We all know that's not always how it works in this business, but let's roll with the assumption that these players are looking to cash in. 🏦💰</p>
+                                    
+                                    <p>Next, I add a new column to my final dataframe, labeled 'Target' and set the value to None. This is the placeholder for the signed free agent. In addition, I add a column, labeled 'Available', to the free agents dataframe and set the value to True. As a player is signed by a team, the value should change to False, making them no longer an option for other Teams.</p>
+                                    <br>
+
+									<h3 class="major">Final Result of the NFL Free Agent Picker</h3>
+
+									<p>With the groundwork set, I only need one final bit of code to make this puppy purr. The first part will assigned a mapping variable to indicate a position to the target recommendations determined by the stats.</p>
+
+                                    <pre><code>position_group_mapping = {
+    'Target Linebacker': ['LB'],
+    'Cornerback': ['CB'],
+    'Offensive Line': ['T', 'C', 'G'],
+    'Quarterback': ['QB'],
+    'Line Help': ['DI', 'ED'],
+    'Safety help': ['S'],
+    'Running Back': ['HB'],
+    'Skill Position': ['WR', 'TE']
+}</code></pre>
+
+									<p>The final code iterates through the target_free_agents df containing the teams, and selects the best available free agent in the corresponding df.</p>
+
+                                    <pre><code># Iterate through the rows of target_free_agents df
+
+for index, row in target_free_agents.iterrows():
+    # Get the target positions for the current team's target position group
+    target_positions = position_group_mapping.get(row['Assessment'], [])
+    
+    # Find the first available free agent that matches one of the target positions
+    available_free_agents = avail_fa[(avail_fa['Position'].isin(target_positions)) 
+                            & (avail_fa['Available'])]
+    
+    if not available_free_agents.empty:
+        # Select the first available free agent
+        selected_free_agent = available_free_agents.iloc[0]
+        
+        # Assign the selected free agent to the team
+        target_free_agents.at[index, 'Target'] = selected_free_agent['Player']
+        
+        # Mark the selected free agent as unavailable
+        avail_fa.at[selected_free_agent.name, 'Available'] = False</code></pre>
+
+                                    <p>I run the code, and voila!</p>
+
+									
+									<h4>NFL Free Agent Picker</h4>
+										<div class="table-wrapper">
+											<table class="alt">
+												<thead>
+													<tr>
+														<th>Team</th>
+														<th>Type</th>
+														<th>Cap Space</th>
+                                                        <th>Assessment</th>
+														<th>Target</th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr>
+														<td>Washington</td>
+														<td>Defense</td>
+														<td>91542471</td>
+                                                        <td>Target Linebacker</td>
+                                                        <td>Patrick Queen</td>
+													</tr>
+													<tr>
+														<td>Washington</td>
+														<td>Defense</td>
+														<td>91542471</td>
+                                                        <td>Cornerback</td>
+                                                        <td>Kendall Fuller</td>
+													</tr>
+													<tr>
+														<td>New England</td>
+														<td>Offense</td>
+														<td>85326475</td>
+                                                        <td>Offensive Line</td>
+                                                        <td>Tyron Smith</td>
+													</tr>
+													<tr>
+														<td>New England</td>
+														<td>Offense</td>
+														<td>85326475</td>
+                                                        <td>Quarterback</td>
+                                                        <td>Kirk Cousins</td>
+													</tr>
+													<tr>
+														<td>Arizona</td>
+														<td>Defense</td>
+														<td>56632512</td>
+                                                        <td>Line Help</td>
+                                                        <td>Chris Jones</td>
+													</tr>
+													<tr>
+														<td>Philadelphia</td>
+														<td>Defense</td>
+														<td>42959107</td>
+                                                        <td>Safety help</td>
+                                                        <td>Kamren Curl</td>
+													</tr>
+													<tr>
+														<td>Las Vegas</td>
+														<td>Offense</td>
+														<td>41605109</td>
+                                                        <td>Running Back</td>
+                                                        <td>Saquon Barkley</td>
+													</tr>
+													<tr>
+														<td>Las Vegas</td>
+														<td>Offense</td>
+														<td>41605109</td>
+                                                        <td>Skill Position</td>
+                                                        <td>Mike Evans</td>
+													</tr>
+													<tr>
+														<td>NY Giants</td>
+														<td>Defense</td>
+														<td>38288933</td>
+                                                        <td>Target Linebacker</td>
+                                                        <td>Frankie Luvu</td>
+													</tr>
+													<tr>
+														<td>NY Jets</td>
+														<td>Offense</td>
+														<td>20705353</td>
+                                                        <td>Offensive Line</td>
+                                                        <td>Trent Brown</td>
+													</tr>
+                                                    <tr>
+														<td>NY Jets</td>
+														<td>Offense</td>
+														<td>20705353</td>
+                                                        <td>Quarterback</td>
+                                                        <td>Baker Mayfield</td>
+													</tr>
+                                                    <tr>
+														<td>Carolina</td>
+														<td>Defense</td>
+														<td>11911547</td>
+                                                        <td>Line Help</td>
+                                                        <td>Christian Wilkins</td>
+													</tr>
+                                                    <tr>
+														<td>LA Chargers</td>
+														<td>Defense</td>
+														<td>-21144997</td>
+                                                        <td>Safety help</td>
+                                                        <td>Xavier McKinney</td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
+
+
+									<h3 class="major">Behind the Scenes</h3>
+									<p>That was fun! But if you'd like to take a closer look at all the code, click the link below!</p>
+
+									<a href="https://github.com/chriscalahan/NFL_free_agency_picker" class="button primary"> My GITHUB</a>
+
+									<section class="features">
+										<article>
+											<a href="covid_reporting.html" class="image"><img src="images/covid feature image.png" alt="" /></a>
+											<h3 class="major">COVID-19 Reporting Analysis</h3>
+											<p>Thanks to the multitude of initiatives focused on understanding the impacts of the COVID-19 virus, there is no shortage of data available. So, why not start from the beginning and see how COVID has affected the hospital system and patients on a granular level?</p>
+											<a href="covid_reporting.html" class="special">Learn more</a>
+										</article>
+										<article>
+											<a href="supermarket_sales.html" class="image"><img src="images/supermarket feature image.png" alt="" /></a>
+											<h3 class="major">Regional Supermarktet Sales</h3>
+											<p>Using a combination of SQL and Tableau, I take a dive into supermarket sales and inventory data over a four year period. Let's see who has risen to the top!</p>
+											<a href="supermarket_sales.html" class="special">Learn more</a>
+										</article>
+									</section>
+
+								</div>
+							</div>
+
+					</section>
+
+				<!-- Footer -->
+				<section id="footer">
+					<div class="inner">
+						<h2 class="major">Get in touch</h2>
+						<p>If you like what you see, have comments, or think I'd be a good fit for your company - REACH OUT! 🙋.</p>
+						<form method="post" action="mailto:chriscalahan@gmail.com">
+							<div class="fields">
+								<div class="field">
+									<label for="name">Name</label>
+									<input type="text" name="name" id="name" />
+								</div>
+								<div class="field">
+									<label for="email">Email</label>
+									<input type="email" name="email" id="email" />
+								</div>
+								<div class="field">
+									<label for="message">Message</label>
+									<textarea name="message" id="message" rows="4"></textarea>
+								</div>
+							</div>
+							<ul class="actions">
+								<li><input type="submit" value="Send Message" /></li>
+							</ul>
+						</form>
+						<ul class="contact">
+							<li class="icon solid fa-home">
+								Chris Calahan<br />
+								10 Jersey Court<br />
+								Middletown, DE 19709
+							</li>
+							<li class="icon solid fa-phone">(302) 740-0900</li>
+							<li class="icon solid fa-envelope"><a href="mailto:chriscalahan@gmail.com">Email</a></li>
+							<li class="icon brands fa-linkedin-in"><a href="https://www.linkedin.com/in/chriscalahan/">LinkedIn</a></li>
+							<li class="icon brands fa-youtube"><a href="https://www.youtube.com/@sheetskunk/">YouTube</a></li>
+							
+						</ul>
+						<ul class="copyright">
+							<li>&copy; Chris Calahan - Data Analyst Portfolio.</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+						</ul>
+					</div>
+				</section>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.scrollex.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>

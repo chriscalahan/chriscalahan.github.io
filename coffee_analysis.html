@@ -1,0 +1,221 @@
+<!DOCTYPE HTML>
+<!--
+	Solid State by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Coffee Chain Analysis</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+	</head>
+	<body class="is-preload">
+
+		<!-- Page Wrapper -->
+			<div id="page-wrapper">
+
+				<!-- Header -->
+					<header id="header">
+						<h1><a href="index.html">Portfolio Projects</a></h1>
+						<nav>
+							<a href="#menu">Menu</a>
+						</nav>
+					</header>
+
+				<!-- Menu -->
+					<nav id="menu">
+						<div class="inner">
+							<h2>Menu</h2>
+							<ul class="links">
+								<li><a href="index.html">Home</a></li>
+								<li><a href="supermarket_sales.html">Supermarket Sales</a></li>
+								<li><a href="coffee_analysis.html">Coffee Chain Analysis</a></li>
+								<li><a href="covid_reporting.html">COVID Reporting Deep Dive</a></li>
+								<li><a href="data_skills.html">Data Analyst Job Search</a></li>
+                                <li><a href="NFL_free_agency.html">NFL Free Agency</a></li>
+				<!--			<li><a href="elements.html">Elements</a></li> -->
+							</ul>
+							<a href="#" class="close">Close</a>
+						</div>
+					</nav>
+
+				<!-- Wrapper -->
+					<section id="wrapper">
+						<header>
+							<div class="inner">
+								<h2>Coffee Chain Analysis</h2>
+								<p>EXCEL – PIVOT TABLES, PIVOT CHARTS, FILTERS, SLICERS, AND MAPS</p>
+							</div>
+						</header>
+
+						<!-- Content -->
+							<div class="wrapper">
+								<div class="inner">
+
+									<h3 class="major">Backstory</h3>
+									<p>Caffeine…  The fuel intake everyone consumes; from stay-at-home moms to Fortune 500 executives. Today, I take on the role of a data analyst for a national coffee chain of moderate standing. The year is 2012, and despite encouraging numbers recently reported, my superiors have expressed the desire to launch noticeable growth within the next two fiscal years.</p>
+
+									<p>I’ve compiled a dataset encompassing sales numbers related to individual products and location statistics, spanning the past two years. My goal is to review the captured reporting using Excel, our primary means of analyzing data, and relay my findings to the stakeholders. They’ve requested a dashboard that accurately highlights the discovered KPIs where actionable strategies are most dominant.</p>
+
+									<h3 class="major">Process</h3>
+									<p>Where to begin? Well, a few probing questions come to mind as I preview the dataset.</p>
+
+									<div class="col-12"><span class="image fit"><img src="images/coffee questions.png" alt="" /></span></div>
+
+									<ol>
+										<li>Which products perform the best and which perform the worst?</li>
+										<li>How does market size and location impact sales/profit? Should certain locations be abandoned? Or should the menu be altered based on market performance?</li>
+										<li>What role, if any, does the time of year play in productivity?</li>
+									</ol>
+
+									<p>Let’s jump in!</p>
+									<p>With a first look at the data, which is happily free of typos, format issues, and null values, I find twenty fields of helpful metrics. There are four location-based columns signifying area codes, state, market location, and market size. The bulk of the data highlights numbers ranging from profit, marketing expenses, budgeted projections, category identifiers, cost of goods (COGS), total sales, and more. The last four columns are comprised of the date the product sold, the product type, product name, and type (regular or decaf).</p>
+									<p>The more granular, non-numeric details I believe hold the most value and impact are:</p>
+
+									<ul>
+										<li>13 products (Caffe Latte, Columbian, Decaf Espresso, Green Tea, etc.)</li>
+										<li>20 US states</li>
+										<li>4 markets (Central, East, South, and West)</li>
+										<li>2 market sizes (Small and Major)</li>
+									</ul>
+
+									<p>But we won’t really know what will brew our success until we start. ☕</p>
+
+									<p>After turning the worksheet into a table, I create four separate Pivot Tables to highlight key aspects of the caffeine sales. The first, I use to analyze the trend of total sales throughout the two-year history. I’ve segmented the order dates by year and quarter, then pull in two instances of the sum of total sales.</p>
+
+									<p>The first aggregated column shows me the sales in dollar value, while the second column converts that number into the percent of total sales over the entire period. The company is relatively small in comparison to competitors, proven by the total sales summation just below $820,000. But the future looks bright with noticeable growth within one year. 📈</p>
+
+									<p>I then create a Pivot Chart using the time series and sales in dollars to emphasize the growing trend in production. After some quick formatting and preemptive thoughts on a final dashboard, I’ve set the foundation for the rest of the analysis.</p>
+
+                                    <p>Moving on to the second Pivot Table, I generate another useful overview of the data by replacing the time series with the list of sold products. Instead of sales, I opt to show the stakeholders the sum of profit from each grouping and its total expenses.</p>
+
+                                    <p>It’s clear from the result that this deserves further analysis as there are wide variations in the outcome.</p>
+
+                                    <p>For instance, applying an additional filter to the Pivot Table, shows me that market size plays a significant role in some of the losses the company is taking. But before I go any further, I need to finish the foundational work.</p>
+
+                                    <p>I create a second Pivot Chart, utilizing a combo column chart for the profit and an area chart for the expenses. After some formatting tweaks to mimic the first chart, I’m ready to press on.</p>
+
+                                    <p>Pivot Table number three I dedicate to the granulated location data. Like the first Pivot Table, I pull in the sum of the total sales, but instead of showing the purchase date, I use the state as my axis.</p>
+
+                                    <p>I’m confident that this will provide the stakeholders with a better understanding of where their wins and losses are coming from.</p>
+
+                                    <p>However, a simple state variable can be misleading. To refine the geographical analysis, I incorporate the various area codes for each state to view the partitions of total sales. The results were interesting. 🧐</p>
+
+                                    <p>I filtered on the area codes for each state that had a less than 25% share of total sales. But that may be misleading as some states have many locations to split up the percentage. So then, I widdle down to the lowermost 30% in sales of those filtered. Those subset of locations equate to 56% of the bottom fourth performing areas.</p>
+
+                                    <p> Meaning there are 77 area codes (49% of <em>ALL</em> areas) that deserve additional investigation to determine their profitability and any future actions to benefit the company. Furthermore, there are specific products that offer no value when sold in segmented locations. Caffe Mocha’s, an Espresso product type, for example, has a negative profit margin when sold in the New York area.</p>
+
+                                    <p>Because this is location data, I visualize this with a Map chart. Unfortunately, Map charts aren’t an available option within Pivot Charts in Excel. So, I make the data static by copying and pasting the state and sum of sales values beside the Pivot Table and now I can generate a map of the US, highlighting the areas of interest. 🗺️</p>
+
+									<div class="col-12"><span class="image fit"><img src="images/pivot table image.png" alt="" /></span></div>
+                                    
+									<p>For my last Pivot Table, I compile the various markets and list their total sum of margin, which is the sales, less the cost of goods sold (COGS). Using a simple bar chart and matching the existing formatting, I have the final visualization for my presentation of KPIs.</p>
+
+                                    <p>With all that complete, I open a new worksheet, insert some objects and custom formatting, and then copy my existing charts into the new dashboard. After applying a timeline and relevant slicers, the data is ready to be reviewed for discussion.</p>
+
+									<h3 class="major">Conclusions</h3>
+
+									<p>What understandings did I gain from this analysis, and what sort of certainties am I prepared to present to the stakeholders?</p>
+
+									<p>Quite a few actually! Here are the five critical thoughts I have after reviewing the data:</p>
+									
+									<ul>
+                                        <li>Total sales consistently decline in the last quarter of each year, but overall numbers are trending up.</li>
+                                        <li>California proves to be the highest in sales and profit but surprisingly comes from mostly small market areas.</li>
+                                        <li>The leader in the clubhouse among all major markets goes to the central United States, primarily Illinois.</li>
+                                        <li>There are products costing the company money with little to no return value. However, these losses are easily identifiable in their corresponding markets.</li>
+                                        <li>49% (77 specific locations) of all geographical sales are underperforming. 📉</li>
+                                    </ul>
+
+
+									<h3 class="major">Recommendations</h3>
+
+									<p>The biggest takeaway and recommendation I have for the decision makers is to initiate a comprehensive review of product performance within each area code. It’s apparent that there are some drastic swings in coffee purchases, even within the same state.</p>
+
+                                    <p>This might also help improve sales in the 49% of locations where the averages are sub-optimal. However, the chain stores in these locations may need a separate initiative focused on their overall longevity. Their expenses in wages and operational cost may not prove beneficial in the long run.</p>
+
+                                    <p>Obviously, seasonality is playing a big role in performance. Sales decline like clockwork in the last quarter every year. Perhaps the marketing team can brainstorm on possible incentives to compete with the nearby chains that seem to thrive around the colder months. Regardless of any decision, I do think the numbers can improve, despite the historical trend. Especially given the industry and coffee fans love of pumpkin spice, peppermint mocha, and all the holiday classics!</p>
+								
+
+									<h3 class="major">Behind the Scenes</h3>
+									<p>Telling you my thought process and all the steps I took with this analysis is all fine and dandy. But nothing beats hands-on experience. So, to have a peek at the original data, the initial Pivot Tables, and the final Dashboard, click the link below!</p>
+
+									<a href="https://github.com/chriscalahan/coffee_sales_excel" class="button primary"> My GITHUB</a>
+
+									<section class="features">
+										<article>
+											<a href="NFL_free_agency.html" class="image"><img src="images/nfl free agent feature image.png" alt="" /></a>
+											<h3 class="major">NFL Free Agency Tracker</h3>
+											<p>Feed your sports addiction with Python! Dive into NFL free agency and help me pick the best available free agent for the most position needy teams.</p>
+											<a href="NFL_free_agency.html" class="special">Learn more</a>
+										</article>
+										<article>
+											<a href="covid_reporting.html" class="image"><img src="images/covid feature image.png" alt="" /></a>
+											<h3 class="major">COVID-19 Reporting Analysis</h3>
+											<p>Thanks to the multitude of initiatives focused on understanding the impacts of the COVID-19 virus, there is no shortage of data available. So, why not start from the beginning and see how COVID has affected the hospital system and patients on a granular level?</p>
+											<a href="covid_reporting.html" class="special">Learn more</a>
+										</article>
+									</section>
+
+								</div>
+							</div>
+
+					</section>
+
+				<!-- Footer -->
+				<section id="footer">
+					<div class="inner">
+						<h2 class="major">Get in touch</h2>
+						<p>If you like what you see, have comments, or think I'd be a good fit for your company - REACH OUT! 🙋.</p>
+						<form method="post" action="mailto:chriscalahan@gmail.com">
+							<div class="fields">
+								<div class="field">
+									<label for="name">Name</label>
+									<input type="text" name="name" id="name" />
+								</div>
+								<div class="field">
+									<label for="email">Email</label>
+									<input type="email" name="email" id="email" />
+								</div>
+								<div class="field">
+									<label for="message">Message</label>
+									<textarea name="message" id="message" rows="4"></textarea>
+								</div>
+							</div>
+							<ul class="actions">
+								<li><input type="submit" value="Send Message" /></li>
+							</ul>
+						</form>
+						<ul class="contact">
+							<li class="icon solid fa-home">
+								Chris Calahan<br />
+								10 Jersey Court<br />
+								Middletown, DE 19709
+							</li>
+							<li class="icon solid fa-phone">(302) 740-0900</li>
+							<li class="icon solid fa-envelope"><a href="mailto:chriscalahan@gmail.com">Email</a></li>
+							<li class="icon brands fa-linkedin-in"><a href="https://www.linkedin.com/in/chriscalahan/">LinkedIn</a></li>
+							<li class="icon brands fa-youtube"><a href="https://www.youtube.com/@sheetskunk/">YouTube</a></li>
+							
+						</ul>
+						<ul class="copyright">
+							<li>&copy; Chris Calahan - Data Analyst Portfolio.</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+						</ul>
+					</div>
+				</section>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.scrollex.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>
